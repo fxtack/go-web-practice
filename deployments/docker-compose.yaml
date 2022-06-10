@@ -1,0 +1,17 @@
+version: "3.7"
+
+services:
+  go-web-service:
+    image: go-web:latest
+    build:
+      context: ..
+      dockerfile: build/package/dockerfile
+    container_name: go-web-service
+    restart: always
+    volumes:
+      - go-web-volume:/go-web-practic
+    ports:
+      - "8000:8000"
+volumes:
+  go-web-volume:
+    name: "go-web-volume"

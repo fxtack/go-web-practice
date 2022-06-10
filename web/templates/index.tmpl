@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GoWebPractic</title>
+    <link rel="icon" href="/web/img/favicon.ico" type="image/x-icon" />
+    <link href="/web/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/jquery-toast-plugin/1.3.2/jquery.toast.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+</head>
+
+<body>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <br>
+            <div class="jumbotron">
+                <h1>
+                    GoWebPractic
+                </h1>
+                <p>
+                    GoWebPractic 是一个学习项目。通过使用 Golang 的原生库实现一个简单的 Web 服务应用。
+                </p>
+                <p>
+                    本项目是跟随 B 站 UP 主
+                    <a href="https://space.bilibili.com/361469957">软件工艺师</a>
+                    的视频
+                    <a href="https://www.bilibili.com/video/BV1Xv411k7Xn">《Go Web 编程快速入门【Golang/Go语言】(完结)》</a>
+                    来进行学习与编写的。
+                </p>
+                <p>
+                    <a class="btn btn-primary btn-large" href="https://github.com/Fxtack/go-web-practic">Github</a>
+                    <a class="btn btn-primary btn-large" href="https://gitee.com/Fxtack/go-web-practic">Gitee</a>
+                    <a class="btn btn-primary btn-large" href="https://blog.csdn.net/weixin_43095238">CSDN</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="row clearfix">
+        <div class="col-md-3 column">
+            <h2>
+                <a href="{{ .welcome }}">welcome</a>
+            </h2>
+            <p>
+                Welcome 页面介绍了 Go 语言，展示了 Go 语言的吉祥物。
+            </p>
+        </div>
+        <div class="col-md-3 column">
+            <h2>
+                <a href="{{ .look }}">look</a>
+            </h2>
+            <p>
+                /look 路由下可以处理 URL 参数，你可以试着访问 /look/down 或者 /look/go。
+            </p>
+        </div>
+        <div class="col-md-3 column">
+            <h2>
+                <a href="{{ .statics }}">statics</a>
+            </h2>
+            <p>
+                通过使用 http.FileServer 来处理请求，其将请求委托给操作系统的文件系统来进行处理，使得请求者可以访问服务器的文件。
+            </p>
+        </div>
+        <div class="col-md-3 column">
+            <h2>
+                <a id="pprof" href="javascript:void(0)">pprof</a>
+            </h2>
+            <p>
+                pprof 是用于可视化和分析性能分析数据的工具。 项目中包含了 pprof 的性能监控服务。
+            </p>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+<script src="/web/plugins/jquery/js/jquery.min.js"></script>
+<script src="/web/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
+<script>
+    $("#pprof").click(function(){
+        showMsg("请访问 {{ .pprof }} 端口下的 /debug/pprof\n\n如果是本机可以访问 localhost:{{ .pprof }}/debug/pprof", "info", 2000);
+    });
+
+    function showMsg(text, icon, hideAfter) {
+        if (heading == undefined) {
+            var heading = "提示";
+        }
+        $.toast({
+            text: text,
+            heading: heading,
+            icon: icon,
+            showHideTransition: 'fade',
+            allowToastClose: true,
+            hideAfter: hideAfter,
+            stack: 1,
+            position: 'top-center',
+            textAlign: 'left',
+            loader: true,
+            loaderBg: '#ffffff',
+            hideAfter: 6000,
+        })
+    }
+</script>
+</html>
