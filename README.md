@@ -1,23 +1,9 @@
 # GoWebPractic
--------
-## ⚠️ develop 分支重大更新
-
-在新的 develop 分支中对项目布局进行了全面的重构。使得项目符合 *golang-standards-project-layout*
-规范。关于该规范的详细内容参见：
-
- * Gitee 镜像：[https://gitee.com/github-image/golang-standards-project-layout](https://gitee.com/github-image/golang-standards-project-layout)
- * Github 原文：[https://github.com/golang-standards/project-layout](https://github.com/golang-standards/project-layout)
-
-该规范符合生产标准，因此值得进行项目布局的重构。此外还有其他修改：
-
- * 优化脚本
- * 同步更新 README.md
-
 ------------
 
 ## 📑 简介
 
-**GoWebPractic 是一个学习项目。通过使用 Golang 的原生库实现一个简单的 Web 服务应用。**
+**go-web-practice 是一个学习项目。通过使用 Golang 的原生库实现一个简单的 Web 应用。**
 
 本项目是跟随 B 站 UP 主 [软件工艺师](https://space.bilibili.com/361469957) 的视频 《[Go Web 编程快速入门【Golang/Go语言】(完结)](https://www.bilibili.com/video/BV1Xv411k7Xn)》来进行学习与编写的。
 
@@ -26,29 +12,28 @@
 * 修整了项目文件结构。
 * JSON 文件完成配置。
 * 自定义 logger。
-* 编写了一些简单的脚本用于部署与维护。
-* 暂无数据库，如果有需要可以自己根据视频连入数据库。后续准备更新一个 SQLite3 数据库连进去。
+* 支持 Docker 以及 Docker-Compose 部署运行。
 
 本项目已经过测试与部署，Linux 主机部署指南在下文中。
 
-公网项目演示: [http://materialc.top:8000](http://materialc.top:8000)
-
-* 项目 Gitee 链接: https://gitee.com/Fxtack/go-web-practic (国内快一些)
-* 项目 Github 链接: https://github.com/Fxtack/go-web-practic
+* 项目 Gitee 链接: https://gitee.com/Fxtack/go-web-practice (国内快一些)
+* 项目 Github 链接: https://github.com/Fxtack/go-web-practice
 
 项目结构:
 ```text
-go-web-practic:
+go-web-practice
 .
+├── LICENSE
+├── README.md
 ├── build
 │   └── package
 │       └── dockerfile
 ├── cmd
-│   ├── GoWebPractic-linux
-│   ├── GoWebPractic-windows.exe
 │   └── main.go
 ├── configs
 │   └── config.json
+├── deployments
+│   └── docker-compose.yaml
 ├── go.mod
 ├── internal
 │   ├── config
@@ -67,24 +52,12 @@ go-web-practic:
 │   │   └── timeout.go
 │   └── templates
 │       └── template.go
-├── LICENSE
-├── README.md
-├── scripts
-│   ├── linux
-│   │   ├── build_to_linux.sh
-│   │   ├── build_to_windows.sh
-│   │   ├── run_background_linux.sh
-│   │   ├── run_linux.sh
-│   │   └── stop_run.sh
-│   └── windows
-│       ├── build_to_linux.bat
-│       └── build_to_windows.bat
 └── web
     ├── img
     │   ├── favicon.ico
     │   ├── golang-down.png
-    │   ├── golang.png
-    │   └── golang-right.png
+    │   ├── golang-right.png
+    │   └── golang.png
     ├── plugins
     │   ├── bootstrap
     │   │   ├── css
@@ -104,15 +77,13 @@ go-web-practic:
 
 ## ⚠ 注意
 
-以下几点是项目目前的问题 ~~或者说是拿来做期末项目的时候要注意的东西~~。
+以下几点是项目目前的问题 ~~或者说是拿来做大学作业的时候要注意的东西~~。
 
-* 项目使用 IDEA 开发的，其他 IDE 的迁移情况未知。
+* 项目使用 Goland 开发的，其他 IDE 的迁移情况未知。
 * 只有 main.go 里面写了一点点注释，其他文件的注释以后更新。
 * 当前项目中的路由还有界面非常少，需要可以自己添加。
 * 没有数据库。
-* shell 脚本写的比较 low。
-
-还在持续学习，后面会补上这些坑。
+* 使用 Docker 以及 Docker-Compose 运行前需要自行对项目进行编译或将可执行文件放到项目目录下。
 
 ------------
 
@@ -126,11 +97,22 @@ go-web-practic:
 
 Golang 的交叉编译提供了很大的便利，这使得我们可以在 Windows 系统下编译出可以在 Linux 环境下运行的可执行文件。
 
-* 如果你是 Windows 平台下进行编译
-  * 项目下 `scripts/windows` 文件夹下运行 `build_to_windows.bat`，将会在项目目录下生成 `GoWebPractic-windows.exe` 文件。项目根目录中初始带了这个文件，再次编译会覆盖根目录中原有的同名文件。
-  * 项目下 `scripts/windows` 文件夹下运行 `build_to_linux.bat`，将会在项目目录下生成 `GoWebPractic-linux` 文件。该文件可以在 linux 系统下运行。再次编译会覆盖项目根目录中原有的同名文件。
-* 如果你是 Linux 平台下进行编译
-  * 项目下 `scripts/linux` 文件夹下运行 `build_to_linux.sh`（设置权限为可运行才能运行），执行后项目根目录下生成 `GoWebPractic-linux` 可执行文件。
+你可以使用以下 .bat 脚本在 windows 完成 windows 以及 linux 环境下的可执行文件编译。
+
+```bat
+# 请以项目目录为工作目录执行该脚本
+
+# windows 可执行文件编译
+go build -o go-web-practice.exe cmd\main.go
+
+# linxu 可执行文件编译
+set CGO_ENABLED=0
+set GOOS=linux
+set GOARCH=amd64
+go build -o go-web-practice .\cmd\main.go
+
+pause
+```
 
 ### 📝 配置
 
@@ -144,7 +126,6 @@ Golang 的交叉编译提供了很大的便利，这使得我们可以在 Window
 |      template       |                    go 模板的路径                     |
 |       address       |                    服务启动的地址 (默认为空，可以实现公网部署)|
 |        port         |                    服务启动的端口                    |
-|      pprofPort       |                  性能监控的服务的端口                  |
 | handleTimeoutSecond | request 处理超时时间（该配置在项目中未使用，作保留） |
 |        trace        | trace logger 输出日志的路径（项目中未使用，作保留）  |
 |        info         |              info logger 输出日志的路径              |
@@ -153,21 +134,17 @@ Golang 的交叉编译提供了很大的便利，这使得我们可以在 Window
 
 ### ⚙ 运行
 
-* 如果你是 Windows 平台下运行
+* windows 环境下运行：
 
-  点击项目根目录下的 `GoWebPractic-windows.exe` 开始运行。
+  点击  `go-web-practice.exe` 运行即可。
 
 * 如果你是 Linux 平台下运行
 
-  Linux 下分为一般运行，和后台运行和作为服务运行，在 `scripts/linux` 中准备了前两种运行方式的脚本和停止程序的脚本。如果你想作为服务运行，可以参照简介中提到的视频来完成。
+  ```bash
+  $ ./go-web-practice
+  ```
 
-  * 运行 `run_linux.sh `。将程序运行在终端，随着终端的关闭，服务也就关了。
-
-  * 运行 `run_background_linux.sh` 。将程序在后台运行，即使终端关闭，也将继续运行。
-
-    > 你可以通过 `ps -aux | grep GoWebPractic` 来查看后台的服务跑起来没有		
-
-  * 运行 `stop_run.sh` 。会把后台的服务关掉。
+  
 
 运行成功会看到以下提示（以下图片为 Ubuntu 云服务器的终端运行截图）：
 
@@ -177,9 +154,7 @@ Golang 的交叉编译提供了很大的便利，这使得我们可以在 Window
 
 ### 🔍 访问
 
-本机可以访问 http://localhost:8000 或 http://localhost:8001/debug/pprof。
-
-前者是首页，后者是性能监控界面。
+本机可以访问 http://localhost:8000。
 
 **如果你是部署在服务器上，想要通过公网访问，记得设置防火墙开放相应的端口。如果是云服务器还要打开安全组。**
 
