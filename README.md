@@ -83,7 +83,7 @@ go-web-practice
 * 只有 main.go 里面写了一点点注释，其他文件的注释以后更新。
 * 当前项目中的路由还有界面非常少，需要可以自己添加。
 * 没有数据库。
-* 使用 Docker 以及 Docker-Compose 运行前需要自行对项目进行编译或将可执行文件放到项目目录下。
+* 使用 docker 以及 docker-compose 运行前需要自行对项目进行编译或将可执行文件放到项目目录下。
 
 ------------
 
@@ -134,27 +134,26 @@ pause
 
 ### ⚙ 运行
 
-* windows 环境下运行：
+运行必须保证以下目录结构（以 Linux 运行为例）：
 
-  点击  `go-web-practice.exe` 运行即可。
+```bash
+.
+├── configs
+│   └── config.json
+├── go-web-practice
+└── web
+    └── ...
+```
 
-* 如果你是 Linux 平台下运行
+直接运行可执行文件即可看到以下提示表示运行成功：
 
-  ```bash
-  $ ./go-web-practice
-  ```
-
-  
-
-运行成功会看到以下提示（以下图片为 Ubuntu 云服务器的终端运行截图）：
-
-![截图](https://images.gitee.com/uploads/images/2021/0710/225206_cd9e202c_7864521.png "QQ图片20210710200611.png")
+![run](https://user-images.githubusercontent.com/59989422/173054601-10ec271d-5341-49d3-9b28-30e5d18642ba.png)
 
 可以用 `curl localhost:8000/welcome` 测试一下，将会返回 welcome 界面的 html。
 
 ### 🔍 访问
 
-本机可以访问 http://localhost:8000。
+本机访问（未修改端口配置）：http://localhost:8000。
 
 **如果你是部署在服务器上，想要通过公网访问，记得设置防火墙开放相应的端口。如果是云服务器还要打开安全组。**
 
@@ -174,18 +173,10 @@ Docker 是什么、怎么装、怎么用，这里不做详细的讲解介绍。
 
 ### 📝 准备镜像
 
-在项目的 `/build/package` 目录下有准备好的 dockerfile 用于生成镜像文件。进入 `/build/package` 目录下，使用以下指令生成镜像：
+在项目的 `/build/package` 目录下有准备好的 dockerfile 用于生成镜像文件，使用以下指令构建 docker 镜像。
 
 ```bash
-docker build -t go-web-practic -f ./dockerfile ../../
-```
-
-其中 `-t ` 后面跟的参数 `go-web-pract` 是镜像名，`-f` 后跟的参数是 dockerfile 的位置，`../` 指定构建的工作目录（在本项目中必须指定到项目目录 `/go-web-practic` ）。
-
-使用以下指令查看生成的镜像：
-
-```bash
-docker images
+$ docker build -t go-web-practice -f ./build/package/dockerfile .
 ```
 
 ### ⚙ 运行容器
@@ -193,74 +184,16 @@ docker images
 后台运行容器输入以下指令：
 
 ```bash
-docker run -d -p 8000:8000 -p 8001:8001 go-web-practic
+$ docker run -d -p 8000:8000 go-web-practice
 ```
 
-想在控制台与容器交互使用以下指令：
+使用 docker-compose 指令直接部署运行使用以下指令：
 
 ```bash
- docker run -it -p 8000:8000 -p 8001:8001 go-web-practic
+$ docker-compose -f deployments/docker-compose.yaml up
 ```
 
-注意，`-p 8000:8000` 和 `-p 8001:8001` 是将容器的端口映射到本机的端口。**其语义是 `-p <要映射到本机的端口>:<容器端口>`**。
-
-此时（新开一个终端）输入以下指令可以查看正在运行的容器：
-
-```bash
-docker ps
-```
-
-### 🔍 访问
-
-访问还是照常访问。
-
-本机可以访问 http://localhost:8000 或 http://localhost:8001/debug/pprof。
-
-前者是首页，后者是性能监控界面。
-
-### 📜 实用 Docker 指令
-
-查看所有容器
-
-```bash
-docker ps -a
-```
-
-停止容器运行
-
-```bash
-docker stop [CONTAINER_ID]
-```
-
-启动停止的容器
-
-```bash
-docker start [CONTAINER_ID]
-```
-
-删除容器
-
-```bash
-docker rm [CONTAINER_ID]
-```
-
-查看所有镜像
-
-```bash
-docker images -a
-```
-
-删除镜像
-
-```bash
-docker rmi [IMAGE_ID]
-```
-
-执行容器的 bash（该容器必须得有 bash）以与容器交互
-
-```bash
-docker exec -it [CONTAINER_ID] /bin/bash
-```
+> 注意，如果修改了端口配置则需修改 docker 运行指令以及 docker-compose.yaml 配置文件中的端口映射字段。
 
 -------
 
