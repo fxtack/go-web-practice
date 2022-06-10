@@ -1,10 +1,8 @@
 package controller
 
 import (
-	"go-web-practic/internal/config"
-	"go-web-practic/internal/templates"
+	"go-web-practice/internal/templates"
 	"net/http"
-	"strconv"
 )
 
 func registerIndexRoutes() {
@@ -18,7 +16,6 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 			"welcome": "/welcome",
 			"look":    "/look",
 			"statics": "/web",
-			"pprof":   strconv.Itoa(config.Config.PprofPort),
 		})
 	default:
 		w.WriteHeader(http.StatusMethodNotAllowed)

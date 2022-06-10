@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"go-web-practic/internal/log"
+	"go-web-practice/internal/log"
 	"net/http"
 )
 

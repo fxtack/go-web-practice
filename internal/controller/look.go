@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"go-web-practic/internal/templates"
+	"go-web-practice/internal/templates"
 	"net/http"
 	"strings"
 )

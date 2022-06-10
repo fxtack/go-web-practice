@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"go-web-practic/internal/config"
+	"go-web-practice/internal/config"
 	"net/http"
 )
 

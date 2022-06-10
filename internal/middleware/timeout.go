@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"context"
-	"go-web-practic/internal/log"
+	"go-web-practice/internal/log"
 	"net/http"
 	"time"
 )

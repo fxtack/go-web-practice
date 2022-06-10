@@ -10,7 +10,6 @@ type config struct {
 	Template            string    `json:"template"`
 	Address             string    `json:"address"`
 	Port                int       `json:"port"`
-	PprofPort           int       `json:"pprofPort"`
 	HandleTimeoutSecond int       `json:"handleTimeoutSecond"`
 	Log                 logConfig `json:"log"`
 }

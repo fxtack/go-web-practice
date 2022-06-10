@@ -1,8 +1,7 @@
 FROM ubuntu:20.04
 
-WORKDIR /go-web-practic
-COPY configs/ ./configs
-COPY web/ ./web
-COPY cmd/ /bin/
-WORKDIR /go-web-practic/cmd
-CMD ["GoWebPractic-linux"]
+WORKDIR /go-web-practice
+COPY configs configs
+COPY web web
+COPY go-web-practice .
+CMD ["./go-web-practice"]

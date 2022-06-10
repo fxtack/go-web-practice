@@ -1,7 +1,7 @@
 package log
 
 import (
-	"go-web-practic/internal/config"
+	"go-web-practice/internal/config"
 	"io"
 	"log"
 	"os"

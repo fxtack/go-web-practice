@@ -1,6 +1,6 @@
 {
-  "static": "../web",
-  "template": "../web/templates/*.tmpl",
+  "static": "web",
+  "template": "web/templates/*.tmpl",
   "address": "",
   "port": 8000,
   "pprofPort": 8001,
