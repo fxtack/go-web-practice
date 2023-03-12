@@ -1,4 +1,4 @@
-# GoWebPractic
+# GoWebPractice
 ------------
 
 ## 📑 简介
@@ -161,9 +161,9 @@ pause
 
 ## 🐋 使用 Docker 运行
 
-develop 分支已更新 dockerfile，并使用 Dorker 对 go-web-practic 的部署运行进行了测试。
+develop 分支已更新 dockerfile，并使用 Dorker 对 go-web-practice 的部署运行进行了测试。
 
-以下是 go-web-practic 的 Docker 部署运行指南。
+以下是 go-web-practice 的 Docker 部署运行指南。
 
 ### 🔨 安装 Docker
 
@@ -197,4 +197,4 @@ $ docker-compose -f deployments/docker-compose.yaml up
 
 -------
 
-若有问题可以邮箱联系我：1244875112@qq.com
+若有问题可以邮箱联系我：fxtack@qq.com
