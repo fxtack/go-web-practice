@@ -114,6 +114,12 @@ go build -o go-web-practice .\cmd\main.go
 pause
 ```
 
+如果你是 MacOS 或 Linux 开发，可以使用 `make` 构建。
+
+```shell
+make
+```
+
 ### 📝 配置
 
 本项目使用 JSON 文件来进行配置。
