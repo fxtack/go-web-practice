@@ -9,7 +9,7 @@ services:
     container_name: go-web-practice-service
     restart: always
     volumes:
-      - go-web-practice-volume:/go-web-practic
+      - go-web-practice-volume:/go-web-practice
     ports:
       - "8000:8000"
 volumes:

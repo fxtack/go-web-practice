@@ -1,13 +1,13 @@
 {
-  "static": "web",
-  "template": "web/templates/*.tmpl",
-  "address": "",
-  "port": 8000,
-  "handleTimeoutSecond": 5,
-  "log": {
-    "trace": "logs/trace.log",
-    "info": "logs/info.log",
-    "warning": "logs/warning.log",
-    "error": "logs/error.log"
-  }
+    "static": "web",
+    "template": "web/templates/*.tmpl",
+    "address": "",
+    "port": 8000,
+    "handleTimeoutSecond": 5,
+    "log": {
+        "trace": "logs/trace.log",
+        "info": "logs/info.log",
+        "warning": "logs/warning.log",
+        "error": "logs/error.log"
+    }
 }

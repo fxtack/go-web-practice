@@ -1,0 +1,6 @@
+FROM golang:1.16.15
+
+WORKDIR /go-web-practice
+COPY . .
+RUN go build -o go-web-practice cmd/main.go
+CMD ["/go-web-practice/go-web-practice"]

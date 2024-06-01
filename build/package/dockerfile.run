@@ -4,4 +4,4 @@ WORKDIR /go-web-practice
 COPY configs configs
 COPY web web
 COPY go-web-practice .
-CMD ["./go-web-practice"]
+CMD ["/go-web-practice/go-web-practice"]
